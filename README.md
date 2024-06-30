@@ -40,6 +40,15 @@ Based on the context provided and the existing `README.md` content, I'll draft a
 
 ---
 
+### State of the Application
+<details>
+  <summary>30.06.2024</summary>
+    1. Very Basic ToDo.
+    2. Uses express and nodejs.
+    3. Uses in-memory to store the todos.
+    4. Complete CRUD support.
+</details>
+
 ### Getting Started with Your Never-Ending Todo App
 To get a local copy up and running, follow these steps:
 
