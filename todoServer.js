@@ -94,8 +94,8 @@ app.use((req, res, next) => {
   res.status(404).send();
 });
 
-// app.listen(port, () => {
-//   console.log(`Server is running on http://localhost:${port}`);
-// });
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});
 
 module.exports = app;
