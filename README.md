@@ -34,3 +34,44 @@ The technologies used in this project may vary as new iterations are added. You 
 ## Contributions
 
 While this is primarily a personal learning project, suggestions and feedback are welcome. Feel free to open an issue or submit a pull request if you have ideas for improvement or spot any bugs.
+
+
+Based on the context provided and the existing `README.md` content, I'll draft a README section focused on how to use the application and the current technology stack. This will complement the existing README structure.
+
+---
+
+### Getting Started with Your Never-Ending Todo App
+To get a local copy up and running, follow these steps:
+
+1. Clone the repository to your local machine.
+   ```
+   git clone https://github.com/HashirAKB/Never-Ending-Todo-App.git
+   cd Never-Ending-Todo-App
+   ```
+
+2. Install NPM packages.
+   ```
+   npm install
+   ```
+
+### Running the Application
+To start the application, follow these steps:
+1. Ensure you are in the root directory of the project.
+2. Run the following command to start the server:
+   ```
+   node todoServer.js
+   ```
+   This command starts the application on `http://localhost:3000`.
+
+### Testing the Application
+To run the tests for the application, execute the following command in the terminal:
+```
+npm run test-todoServer
+```
+
+This command runs the test suite defined in `todoServer.test.js`, covering various functionalities such as creating, retrieving, updating, and deleting todo items.
+
+### Built With
+- **Node.js** - Runtime environment.
+- **Express** - Web framework for building APIs.
+- **Jest** - Testing framework for JavaScript.
