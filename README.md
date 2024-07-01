@@ -43,10 +43,39 @@ Based on the context provided and the existing `README.md` content, I'll draft a
 ### State of the Application
 <details>
   <summary>30.06.2024</summary>
+  
     1. Very Basic ToDo.
     2. Uses express and nodejs.
     3. Uses in-memory to store the todos.
     4. Complete CRUD support.
+</details>
+<details>
+  <summary>01.07.2024</summary>
+
+    1. **File-Based Storage for Todo Items**
+      - Implemented file-based storage using `todos.json`.
+      - Updated route handlers for file-based operations.
+      - Ensured backward compatibility.
+
+    2. **Enhanced Logging with Winston**
+      - Integrated Winston for logging.
+      - Configured file and console transports.
+      - Replaced `console.log` with Winston logger.
+      - Added environment detection and logging.
+
+    3. **Improved Error Handling**
+      - Added retry mechanism with exponential backoff for data retrieval.
+      - Introduced `getFallbackData()` for critical error handling.
+      - Updated routes to use enhanced error handling.
+
+    4. **Code Modularization and Organization**
+      - Extracted logger functionality into a separate module.
+      - Separated data access operations into their own module.
+      - Moved route handlers into a dedicated module.
+      - Created an entry point file for server configuration.
+      - Organized log files into a "logs" directory.
+
+    These updates improve the application's persistence, error handling, logging, and maintainability. Future updates will enhance error handling, validation, and logging further.
 </details>
 
 ### Getting Started with Your Never-Ending Todo App
