@@ -43,15 +43,18 @@
   const bodyParser = require('body-parser');
   const app = express();
   app.use(bodyParser.json());
+
+  const {updateTodoFile, getDataFromFile} = require('./todoManage');
   
   const port = 3000;
-  let todoList = [];
   
-  app.get('/todos', (req, res) => {
+  app.get('/todos', async (req, res) => {
+    const todoList = await getDataFromFile();
     res.status(200).json(todoList);
   });
   
-  app.get('/todos/:id', (req, res) => {
+  app.get('/todos/:id', async (req, res) => {
+    const todoList = await getDataFromFile();
     const todo = todoList.find(item => item.id == req.params.id);
     if(todo){
       res.status(200).json(todo);
@@ -61,32 +64,38 @@
     }
   });
   
-  app.post('/todos',(req, res) => {
+  app.post('/todos',async (req, res) => {
     let newTodo = req.body;
     newTodo.id = Math.floor(Math.random() * 100000);
+    let todoList = await getDataFromFile();
     todoList.push(newTodo);
+    updateTodoFile(todoList);
     res.status(201).json(newTodo);
   });
   
-  app.put('/todos/:id', (req, res) => {
+  app.put('/todos/:id', async (req, res) => {
+    let todoList = await getDataFromFile();
     let index = todoList.findIndex(item => item.id == parseInt(req.params.id));
-    if(index != -1){
-      todoList[index] = {...todoList[index], ...req.body};
-      res.status(200).json(todoList);
+    if (index != -1){
+        todoList[index] = {...todoList[index], ...req.body};
+        updateTodoFile(todoList);
+        res.status(200).json(todoList);
     }
     else{
-      res.status(404).json({"Error": "Requested Item not found."});
+        res.status(404).json({"Error": "Requested Item not found."});
     }
   });
   
-  app.delete('/todos/:id', (req, res) => {
+  app.delete('/todos/:id', async (req, res) => {
+    let todoList = await getDataFromFile();
     let index = todoList.findIndex(item => item.id == parseInt(req.params.id));
-    if(index != -1){
-      todoList.splice(index,1);
-      res.status(200).json(todoList);
+    if (index != -1){
+        todoList.splice(index,1);
+        updateTodoFile(todoList);
+        res.status(200).json(todoList);
     }
     else{
-      res.status(404).json({"Error": "Requested Item not found."});
+        res.status(404).json({"Error": "Requested Item not found."});
     }
   });
   
