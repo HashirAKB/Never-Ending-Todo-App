@@ -1,7 +1,0 @@
-[
-    {"title":"Update UI from johndoe","description":"UI needs a refresh for better UX.","id":12345},
-    {"title":"Fix bug in login system from alice","description":"Users report issues logging in.","id":67890},
-    {"title":"Implement new feature X from bob","description":"Need to add support for feature X in the app.","id":11111},
-    {"title":"Optimize database queries from charlie","description":"Slow query times affecting performance.","id":22222},
-    {"title":"Review security protocols from dave","description":"Ensure all data transfers are encrypted.","id":33333}
-]

@@ -43,13 +43,15 @@
   const bodyParser = require('body-parser');
   const app = express();
   app.use(bodyParser.json());
+  const logger = require('./logger');
 
   const {updateTodoFile, getDataFromFile} = require('./todoManage');
   
   const port = 3000;
-  
+
   app.get('/todos', async (req, res) => {
     const todoList = await getDataFromFile();
+    logger.info("From getTodos: "+todoList);
     res.status(200).json(todoList);
   });
   

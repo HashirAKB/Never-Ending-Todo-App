@@ -1,8 +1,9 @@
 var fs = require('fs');
+const logger = require('./logger');
 
 function updateTodoFile(item){
     fs.writeFile("todos.json",JSON.stringify(item), function(err, result){
-        if(err) console.log('error',err);
+        if(err) logger.error('error', err);
     });
 }
 
@@ -11,11 +12,11 @@ function getDataFromFile(){
         if(fs.existsSync('todos.json')){
             const data = fs.readFile('todos.json',(err, data) => {
                 if(err){
+                    logger.error('error', err);
                     reject(err);
                 }
                 else{
-                    // console.log("This is the OG Data: "+data);
-                    // console.log("This is from getData: "+JSON.parse(data));
+                    logger.info("This is from getData: " +JSON.parse(data));
                     resolve(JSON.parse(data));
                 }
             });
