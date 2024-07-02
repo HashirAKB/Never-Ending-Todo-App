@@ -3,7 +3,7 @@ const express = require('express');
 const logger = require('./logger');
 const { updateTodoFile, getDataFromFile } = require('./dataAccess.js');
 const countRequests = require('./middlewares/requestCounter.js')
-const requestLimiter = require('./middlewares/rateLimitter.js')
+const {requestLimiter} = require('./middlewares/rateLimitter.js')
 const fetchRequestCount = require('./fetchRequestCount.js')
 const app = express();
 app.use(countRequests);
@@ -132,9 +132,14 @@ app.get('/requestcount', async (req,res) => {
 
 });
 
+app.get('/user', function(req, res) {
+    throw new Error("User not found");
+});
+
 app.use((err, req, res, next) => {
     if(err){
-        res.status(404).json({ error: err.message });
+        res.setHeader('X-Error-Message', err.message);
+        res.status(404).json({ error: err.message});
     }
 });
 
