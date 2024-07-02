@@ -131,4 +131,11 @@ app.get('/requestcount', async (req,res) => {
     }
 
 });
+
+app.use((err, req, res, next) => {
+    if(err){
+        res.status(404).json({ error: err.message });
+    }
+});
+
 module.exports = app;
