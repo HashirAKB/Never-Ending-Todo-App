@@ -1,9 +1,17 @@
 const logger = require('../logger');
 
 let numberOfRequestsForUser = {};
-setInterval(() => {
-    numberOfRequestsForUser = {};
-}, 1000)
+let intervalId;
+
+function setupInterval() {
+  if (process.env.NODE_ENV !== 'test') {
+    intervalId = setInterval(() => {
+      numberOfRequestsForUser = {};
+    }, 1000);
+  }
+}
+
+setupInterval()
 
 function requestLimiter(req, res, next){
   let user = req.headers['user-id'];
@@ -31,4 +39,9 @@ function requestLimiter(req, res, next){
     next();
   }
 }
-module.exports = requestLimiter;
+
+module.exports = {
+  requestLimiter,
+  setupInterval,
+  clearInterval: () => clearInterval(intervalId),
+};

@@ -2,6 +2,7 @@ const http = require('http');
 const { v4: uuidv4 } = require('uuid');
 
 const server = require('../components/routeHandlers');
+const { setupInterval, clearInterval } = require('../components/middlewares/rateLimitter');
 const port = 3000;
 const baseUrl = `http://localhost:${port}`;
 
@@ -10,14 +11,20 @@ describe('Todo API', () => {
   let globalServer;
 
   beforeAll((done) => {
+    jest.useFakeTimers();
+    setupInterval();
     if (globalServer) {
         globalServer.close();
     }
     globalServer = server.listen(3000);
     done()
   });
+  afterEach(() => {
+    clearInterval();
+  });
 
   afterAll((done) => {
+    jest.clearAllTimers();
     globalServer.close(done);
   });
 
@@ -137,6 +144,14 @@ describe('Todo API', () => {
   test('should return 404 for a non-existent todo item', (done) => {
     http.get(`${baseUrl}/todos/${uuidv4()}`, (res) => {
       expect(res.statusCode).toBe(404);
+      done();
+    });
+  });
+
+  test('Exception endpoint returns a 404, with error', function(done) {
+    http.get(`${baseUrl}/user`, (res) => {
+      expect(res.statusCode).toBe(404);
+      expect(res.headers['x-error-message']).toBe("User not found");
       done();
     });
   });
