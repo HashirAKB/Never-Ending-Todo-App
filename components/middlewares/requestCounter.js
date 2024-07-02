@@ -12,6 +12,7 @@ const rootDirectoryPath = process.cwd(); // Gets the current working directory
 const dataFilePath = path.join(rootDirectoryPath, 'data', 'requestCounts.json');
 
 async function countRequests(req, res, next) {
+    if (process.env.NODE_ENV !== 'test') {
         let data;
         try{
             data = await fs.promises.readFile(dataFilePath, 'utf8');
@@ -58,6 +59,11 @@ async function countRequests(req, res, next) {
             logger.info("Updated request count file.");
         });
     next();
+    }
+    else{
+        next();
+    }
+        
 }
 
 module.exports = countRequests;
