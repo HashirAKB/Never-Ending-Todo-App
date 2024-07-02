@@ -1,6 +1,6 @@
 var fs = require('fs');
 const logger = require('./logger');
-const dbFileName = 'todos.json';
+const dbFileName = './data/todos.json';
 
 function updateTodoFile(item = []){
     return new Promise((resolve, reject) => {

@@ -156,7 +156,15 @@ The following are the API endpoints available for the Todo List App. These route
   - `404 Not Found` if the todo item is not found.
 - **Example:** `DELETE http://localhost:3000/todos/123`
 
-#### 6. Handle Undefined Routes
+#### 6. Get Requests Count
+- **Endpoint:** `GET /requestCount`
+- **Description:** Get The Total Count Of request recieved by the app.
+- **Response:**
+  - `200 OK` with requests information in JSON format
+  - `404 Not Found` if not found.
+- **Example:** `GET http://localhost:3000/requestCount`
+
+#### 7. Handle Undefined Routes
 - **Response:**
   - `404 Not Found` for any route not defined in the server.
 

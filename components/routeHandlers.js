@@ -2,8 +2,12 @@
 const express = require('express');
 const logger = require('./logger');
 const { updateTodoFile, getDataFromFile } = require('./dataAccess.js');
-
+const countRequests = require('./middlewares/requestCounter.js')
+const {requestLimiter} = require('./middlewares/rateLimitter.js')
+const fetchRequestCount = require('./fetchRequestCount.js')
 const app = express();
+app.use(countRequests);
+app.use(requestLimiter);
 app.use(express.json());
 
 app.get('/todos', async (req, res) => {
@@ -109,6 +113,33 @@ app.delete('/todos/:id', async (req, res) => {
         });
         // logger.error("Failed to delete todo item:", error);
         res.status(500).json({ error: "Failed to delete todo item with id: "+req.params.id});
+    }
+});
+
+app.get('/requestcount', async (req,res) => {
+    try{
+        const countData = await fetchRequestCount();
+        res.status(200).json(countData);
+        logger.info("Returned request count info");
+    } catch (error) {
+        logger.error({
+            code: 'REQUEST_COUNT_FETCH_FAILED',
+            message: `Failed to retrieve request count`,
+            error: error
+        });
+        res.status(500).json({ error: "Failed to retrieve request count"});
+    }
+
+});
+
+app.get('/user', function(req, res) {
+    throw new Error("User not found");
+});
+
+app.use((err, req, res, next) => {
+    if(err){
+        res.setHeader('X-Error-Message', err.message);
+        res.status(404).json({ error: err.message});
     }
 });
 
