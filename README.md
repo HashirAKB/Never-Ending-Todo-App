@@ -77,6 +77,32 @@ Based on the context provided and the existing `README.md` content, I'll draft a
 
     These updates improve the application's persistence, error handling, logging, and maintainability. Future updates will enhance error handling, validation, and logging further.
 </details>
+<details>
+  <summary>02.07.2024</summary>
+  
+    1. **Re-organized Components**:
+        - Improved the structure of the components for better readability and maintainability. (Commits: `d08a789`, `1f14999`)
+
+    2. **Added Request Counter Middleware**:
+        - Introduced middleware to count the number of requests made. This will help in monitoring the application usage. (Commits: `b179f82`, `81da994`)
+
+    3. **GET: requestCount**:
+        - Implemented a new route to fetch the total requests count information, providing insight into the usage metrics. (Commits: `aa552ef`, `8c89418`)
+
+    4. **Middleware: RateLimiter**:
+        - Added a `requestLimiter` middleware to restrict the number of requests per user. This middleware ensures that a user can only make 3 requests per second. It helps prevent abuse and ensures fair usage of the application's resources. (Commits: `ed45275`, `daf288d`)
+        - Details:
+            - Tracks the number of requests per user.
+            - Responds with an error message if the limit is exceeded.
+
+    5. **Add: GlobalErrorHandler**:
+        - Introduced a global error handler middleware to catch and manage errors occurring in the application, improving the overall robustness. (Commits: `7252a4a`, `cbbb8a5`)
+
+    6. **TestCase: rateLimiter**:
+        - Added test cases for the `rateLimiter` middleware to ensure its functionality and reliability. (Commits: `4dd4de6`)
+
+    These enhancements will improve the application's performance, security, and maintainability. Please review the changes and provide feedback.
+</details>
 
 ### Getting Started with Your Never-Ending Todo App
 To get a local copy up and running, follow these steps:
