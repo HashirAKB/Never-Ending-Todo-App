@@ -1,7 +1,7 @@
 const http = require('http');
 const { v4: uuidv4 } = require('uuid');
 
-const server = require('../routeHandlers');
+const server = require('../components/routeHandlers');
 const port = 3000;
 const baseUrl = `http://localhost:${port}`;
 
