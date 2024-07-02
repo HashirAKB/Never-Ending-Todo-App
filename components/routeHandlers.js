@@ -2,8 +2,9 @@
 const express = require('express');
 const logger = require('./logger');
 const { updateTodoFile, getDataFromFile } = require('./dataAccess.js');
-
+const countRequests = require('./middlewares/requestCounter.js')
 const app = express();
+app.use(countRequests);
 app.use(express.json());
 
 app.get('/todos', async (req, res) => {
