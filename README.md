@@ -194,6 +194,43 @@ The following are the API endpoints available for the Todo List App. These route
 - **Response:**
   - `404 Not Found` for any route not defined in the server.
 
+#### 8. User Registration
+- **Endpoint:** `POST /users/signup`
+- **Description:** Registers a new user with a username and password.
+- **Request Body:**
+  - `username`: String, required
+  - `password`: String, required
+- **Response:**
+  - `200 OK` with a success message and user ID if successful.
+  - `500 Internal Server Error` if there's an error during registration.
+
+#### 9. User Sign In
+- **Endpoint:** `POST /users/signin`
+- **Description:** Authenticates an existing user with their username and password.
+- **Request Body:**
+  - `username`: String, required
+  - `password`: String, required
+- **Response:**
+  - `200 OK` with a success message if authentication is successful.
+  - `500 Internal Server Error` if the user is not found or there's another error.
+
+#### 10. Update User Information
+- **Endpoint:** `PUT /users/:id`
+- **Description:** Updates the information of an existing user identified by their ID.
+- **Request Body:** JSON object containing the updated user information.
+- **Response:**
+  - `200 OK` with a success message and user ID if the update is successful.
+  - `404 Not Found` if the user is not found.
+  - `500 Internal Server Error` if there's an error during the update process.
+
+#### 11. Delete User Account
+- **Endpoint:** `DELETE /users/:id`
+- **Description:** Deletes a user account identified by their ID.
+- **Response:**
+  - `200 OK` with a success message and user ID if the deletion is successful.
+  - `404 Not Found` if the user is not found.
+  - `500 Internal Server Error` if there's an error during the deletion process.
+
 #### Testing the Server
 - Run the following command in the terminal to test the server:
   ```

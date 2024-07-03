@@ -1,4 +1,4 @@
-const app = require("./components/routeHandlers");
+const app = require("./components/routeHandler");
 const port = 3000;
 
 app.listen(port, () => {

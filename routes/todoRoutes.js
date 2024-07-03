@@ -1,16 +1,9 @@
-// routeHandlers.js
-const express = require('express');
-const logger = require('./logger');
-const { updateTodoFile, getDataFromFile } = require('./dataAccess.js');
-const countRequests = require('./middlewares/requestCounter.js')
-const {requestLimiter} = require('./middlewares/rateLimitter.js')
-const fetchRequestCount = require('./fetchRequestCount.js')
-const app = express();
-app.use(countRequests);
-app.use(requestLimiter);
-app.use(express.json());
+const { Router } = require("express");
+const router = Router();
+const { updateTodoFile, getDataFromFile } = require('../components/dataAccess');
+const logger = require('../components/logger');
 
-app.get('/todos', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         let todoList = await getDataFromFile();
         logger.info("From getTodos: " + todoList);
@@ -25,7 +18,7 @@ app.get('/todos', async (req, res) => {
     }
 });
 
-app.get('/todos/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try{
         let todoList = await getDataFromFile();
         let todo = todoList.find(item => item.id == req.params.id);
@@ -48,7 +41,7 @@ app.get('/todos/:id', async (req, res) => {
     }
 });
 
-app.post('/todos', async (req, res) => {
+router.post('/', async (req, res) => {
     try{
         let newTodo = req.body;
         newTodo.id = Math.floor(Math.random() * 1000000);
@@ -69,7 +62,7 @@ app.post('/todos', async (req, res) => {
 
 });
 
-app.put('/todos/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
     try {
         const todoList = await getDataFromFile();
         const index = todoList.findIndex(item => item.id == parseInt(req.params.id));
@@ -92,7 +85,7 @@ app.put('/todos/:id', async (req, res) => {
     }
 });
 
-app.delete('/todos/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try {
         const todoList = await getDataFromFile();
         const index = todoList.findIndex(item => item.id == parseInt(req.params.id));
@@ -116,31 +109,4 @@ app.delete('/todos/:id', async (req, res) => {
     }
 });
 
-app.get('/requestcount', async (req,res) => {
-    try{
-        const countData = await fetchRequestCount();
-        res.status(200).json(countData);
-        logger.info("Returned request count info");
-    } catch (error) {
-        logger.error({
-            code: 'REQUEST_COUNT_FETCH_FAILED',
-            message: `Failed to retrieve request count`,
-            error: error
-        });
-        res.status(500).json({ error: "Failed to retrieve request count"});
-    }
-
-});
-
-app.get('/user', function(req, res) {
-    throw new Error("User not found");
-});
-
-app.use((err, req, res, next) => {
-    if(err){
-        res.setHeader('X-Error-Message', err.message);
-        res.status(404).json({ error: err.message});
-    }
-});
-
-module.exports = app;
+module.exports = router
