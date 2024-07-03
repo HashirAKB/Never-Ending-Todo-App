@@ -43,8 +43,6 @@ function getDataFromFile() {
                         });
                     } else {
                         try {
-                            logger.info("This is the OG Data: " + data);
-                            logger.info("This is from getData: " + JSON.parse(data));
                             resolve(JSON.parse(data));
                         } catch (anyErrorWhileParsing) {
                             reject({
