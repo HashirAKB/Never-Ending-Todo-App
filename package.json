@@ -48,8 +48,7 @@
     },
     "hooks": {
       "before:init": [
-        "git pull",
-        "npm run test-todoServer"
+        "git pull"
       ],
       "after:bump": "npx auto-changelog -p"
     }
