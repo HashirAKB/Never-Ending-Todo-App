@@ -116,6 +116,21 @@ Based on the context provided and the existing `README.md` content, I'll draft a
     By segregating routes and enhancing user management functionalities, we've made the application more user-friendly and developer-friendly. The automated PR tooling further streamlines our development workflow, ensuring that all PRs are well-documented and easily understandable.
 
 </details>
+<details>
+  <summary>05.07.2024</summary>
+
+  implemented JWT-based authentication and MongoDB integration.
+
+  - Added authMiddleware for JWT verification.
+  - Created User and Todo schemas using Mongoose.
+  - Updated user routes to use MongoDB and JWT.
+  - Implemented secure password hashing with bcrypt.
+  - Added error handling and proper HTTP status codes.
+  - Ensured user can only modify their own data.
+      
+  [Never-Ending-Todo-App commit e84271c](https://github.com/HashirAKB/Never-Ending-Todo-App/commit/e84271c1dbd9c6cce5c05a43f1943d6d04507d54)
+
+</details>
 
 ### Getting Started with Your Never-Ending Todo App
 To get a local copy up and running, follow these steps:
@@ -207,15 +222,16 @@ The following are the API endpoints available for the Todo List App. These route
 - **Response:**
   - `404 Not Found` for any route not defined in the server.
 
-#### 8. User Registration
+#### 8. User Sign Up
 - **Endpoint:** `POST /users/signup`
-- **Description:** Registers a new user with a username and password.
+- **Description:** Creates a new user account.
 - **Request Body:**
   - `username`: String, required
   - `password`: String, required
 - **Response:**
-  - `200 OK` with a success message and user ID if successful.
-  - `500 Internal Server Error` if there's an error during registration.
+  - `200 OK` with a success message and user ID if account creation is successful.
+  - `400 Bad Request` if the username already exists.
+  - `500 Internal Server Error` if there's an error during account creation.
 
 #### 9. User Sign In
 - **Endpoint:** `POST /users/signin`
@@ -224,25 +240,42 @@ The following are the API endpoints available for the Todo List App. These route
   - `username`: String, required
   - `password`: String, required
 - **Response:**
-  - `200 OK` with a success message if authentication is successful.
-  - `500 Internal Server Error` if the user is not found or there's another error.
+  - `200 OK` with a JWT token if authentication is successful.
+  - `400 Bad Request` if the username or password is invalid.
+  - `500 Internal Server Error` if there's an error during authentication.
 
-#### 10. Update User Information
+#### 10. Update User
 - **Endpoint:** `PUT /users/:id`
-- **Description:** Updates the information of an existing user identified by their ID.
-- **Request Body:** JSON object containing the updated user information.
+- **Description:** Updates information for an existing user.
+- **Authentication:** Required (JWT)
+- **Request Parameters:**
+  - `id`: String, user ID
+- **Request Body:**
+  - `username`: String, optional
+  - `password`: String, optional
 - **Response:**
-  - `200 OK` with a success message and user ID if the update is successful.
+  - `200 OK` with a success message and user ID if update is successful.
+  - `403 Forbidden` if trying to update another user's data.
   - `404 Not Found` if the user is not found.
-  - `500 Internal Server Error` if there's an error during the update process.
+  - `500 Internal Server Error` if there's an error during update.
 
-#### 11. Delete User Account
+#### 11. Delete User
 - **Endpoint:** `DELETE /users/:id`
-- **Description:** Deletes a user account identified by their ID.
+- **Description:** Deletes a user account and all associated todos.
+- **Authentication:** Required (JWT)
+- **Request Parameters:**
+  - `id`: String, user ID
 - **Response:**
-  - `200 OK` with a success message and user ID if the deletion is successful.
+  - `200 OK` with a success message and user ID if deletion is successful.
+  - `403 Forbidden` if trying to delete another user's account.
   - `404 Not Found` if the user is not found.
-  - `500 Internal Server Error` if there's an error during the deletion process.
+  - `500 Internal Server Error` if there's an error during deletion.
+
+#### 12. Error Test
+- **Endpoint:** `GET /users/error`
+- **Description:** Test route that throws an error.
+- **Response:**
+  - Throws a "User not found" error.
 
 #### Testing the Server
 - Run the following command in the terminal to test the server:

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const app = require("./components/routeHandler");
 const port = 3000;
 
