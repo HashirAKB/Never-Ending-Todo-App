@@ -1,0 +1,19 @@
+name: Auto PR
+
+on:
+  push:
+    branches:
+    - Never-Ending-Todo-App-Dev
+
+jobs:
+  pr-automation:
+    name: Open PR to main
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: pull-request
+      uses: diillson/auto-pull-request@v1.0.1
+        with:
+          destination_branch: "main"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
