@@ -131,6 +131,32 @@ Based on the context provided and the existing `README.md` content, I'll draft a
   [Never-Ending-Todo-App commit e84271c](https://github.com/HashirAKB/Never-Ending-Todo-App/commit/e84271c1dbd9c6cce5c05a43f1943d6d04507d54)
 
 </details>
+<details>
+  <summary>09.07.2024</summary>
+
+  ### Overview
+  This release introduces significant enhancements to our Todo application, including backend authentication, database migration, initial frontend implementation, and automated PR creation.
+
+  ### Changes
+
+  #### 1. Authentication and Database Operations
+  - Added authentication middleware to secure all routes
+  - Migrated from file-based storage to MongoDB operations
+  - Implemented CRUD operations using MongoDB models
+  - Enhanced error handling and logging
+
+  #### 2. Frontend Implementation
+  - Created basic HTML structure and CSS styling
+  - Implemented core todo functionalities (add, edit, mark as done, delete)
+  - Utilized vanilla JavaScript for DOM manipulation
+  - Added responsive design and improved UI
+
+  #### 3. Automated PR Creation
+  - Implemented GitHub Actions workflow for automatic PR creation
+  - Triggers on pushes to "Never-Ending-Todo-App-Dev" branch
+  - Automates PR creation to merge into "main" branch
+
+</details>
 
 ### Getting Started with Your Never-Ending Todo App
 To get a local copy up and running, follow these steps:
