@@ -1,6 +1,7 @@
 // routeHandlers.js
 const express = require('express');
 const logger = require('./logger.js');
+// const cors = require('cors');
 
 const countRequests = require('./middlewares/requestCounter.js');
 const {requestLimiter} = require('./middlewares/rateLimitter.js')
@@ -14,6 +15,7 @@ app.use(countRequests);
 app.use(requestLimiter);
 app.use(express.json());
 
+// app.use(cors());
 app.use('/todos', todoRouter);
 app.use('/user', userRouter);
 app.use('/requestcount', reqCountRouter);
