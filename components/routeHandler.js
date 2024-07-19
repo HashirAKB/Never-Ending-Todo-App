@@ -1,7 +1,7 @@
 // routeHandlers.js
 const express = require('express');
 const logger = require('./logger.js');
-// const cors = require('cors');
+const cors = require('cors');
 
 const countRequests = require('./middlewares/requestCounter.js');
 const {requestLimiter} = require('./middlewares/rateLimitter.js')
@@ -15,7 +15,15 @@ app.use(countRequests);
 app.use(requestLimiter);
 app.use(express.json());
 
-// app.use(cors());
+const corsOptions = {
+    origin: process.env.FRONTEND_URL, // replace with your frontend URL
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+    allowedHeaders: 'Content-Type,Authorization', // Add other headers your client is sending
+  };
+
+app.use(cors(corsOptions));
 app.use('/todos', todoRouter);
 app.use('/user', userRouter);
 app.use('/requestcount', reqCountRouter);
