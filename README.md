@@ -31,6 +31,14 @@ The technologies used in this project may vary as new iterations are added. You 
 - Authentication methods
 - And more as the project progresses
 
+## Live Demo
+
+Experience the Never-Ending Todo App in action:
+
+- Frontend: [https://never-ending-todo-app-frontend.onrender.com/](https://never-ending-todo-app-frontend.onrender.com/)
+- Backend API: [https://never-ending-todo-app-backend.onrender.com](https://never-ending-todo-app-backend.onrender.com)
+
+
 ## Contributions
 
 While this is primarily a personal learning project, suggestions and feedback are welcome. Feel free to open an issue or submit a pull request if you have ideas for improvement or spot any bugs.
